@@ -1,6 +1,7 @@
 C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\Hooks\WebDriverHooks.java
 C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\Pages\BasePage.java
 C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\StepDefinitions\CommonStepDefs.java
+C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\support\BrowserFactory.java
 C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\StepDefinitions\AmazonStepDef.java
 C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\Pages\HomePage.java
 C:\Users\002S4W744\workspace\AutomationTesting\Amazon\src\test\java\Cucumber\Option\Runner.java

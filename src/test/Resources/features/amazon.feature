@@ -1,6 +1,5 @@
-@Amazon
 Feature: Verify product search and checkout
-  @smoke
+  @smoke @sanity @regression
   Scenario: As a Tester, I verify product search and proceed for check out
     Given I navigate to the Amazon homepage
     And   I Search for "Macbook" product and product get listed

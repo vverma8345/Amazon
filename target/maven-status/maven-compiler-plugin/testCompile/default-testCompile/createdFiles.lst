@@ -1,4 +1,5 @@
 StepDefinitions\CommonStepDefs.class
+support\BrowserFactory.class
 Cucumber\Option\Runner.class
 Pages\BasePage.class
 Pages\HomePage.class

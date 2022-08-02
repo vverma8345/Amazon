@@ -84,16 +84,100 @@
                         <compilerArgument>-Werror</compilerArgument>
                     </configuration>
                 </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M7</version>
                     <configuration>
+                        <threadCount>2</threadCount>
+                        <perCoreThreadCount>false</perCoreThreadCount>
+                        <parallel>methods</parallel>
                         <includes>
-                            <exclude>**/*Runner.java</exclude>
+                            <include>**/*Runner.java</include>
                         </includes>
+                        <testFailureIgnore>false</testFailureIgnore>
                     </configuration>
                 </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <executions>
+                            <execution>
+                                <id>run parallel tests</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <forkCount>2</forkCount>
+                                    <reuseForks>true</reuseForks>
+                                    <systemPropertyVariables>
+                                        <!--suppress UnresolvedMavenProperty -->
+                                        <forkNumber>${surefire.forkNumber}</forkNumber>
+                                    </systemPropertyVariables>
+                                    <argLine>-Xms256m -Xmx2048m</argLine> <!--The insufficient memory allocated to the "test" lifecycle of maven-->
+
+                                    <!-- <useUnlimitedThreads>true</useUnlimitedThreads> -->
+                                    <!-- <parallel>classes</parallel> -->
+                                    <!-- <testFailureIgnore>true</testFailureIgnore> -->
+                                    <!--<threadCount>${parallelCount}</threadCount>-->
+                                    <!--<threadCountClasses>1</threadCountClasses>-->
+                                    <!--<forkCount>1C</forkCount>  number of cores * 1 = JVMs -->
+                                    <!--<forkCount>${parallelCount}</forkCount>-->
+                                    <disableXmlReport>false</disableXmlReport>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>build status</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <failIfNoTests>true</failIfNoTests>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Cluecumber plugin aggregates all generated .json report files into one overall test
+                         report - https://github.com/trivago/cluecumber-report-plugin -->
+                    <plugin>
+                        <groupId>com.trivago.rta</groupId>
+                        <artifactId>cluecumber-report-plugin</artifactId>
+                        <version>2.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>report: post integration-test phase</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>reporting</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report: post test phase</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>reporting</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <sourceJsonReportDirectory>${project.build.directory}/cucumber-reports</sourceJsonReportDirectory>
+                            <generatedHtmlReportDirectory>${project.build.directory}/cucumber-reports/html</generatedHtmlReportDirectory>
+                            <customPageTitle>Amazon Tests</customPageTitle>
+                            <expandBeforeAfterHooks>true</expandBeforeAfterHooks>
+                            <expandStepHooks>false</expandStepHooks>
+                            <expandDocStrings>false</expandDocStrings>
+                            <customParameters>
+                                <Product>Amazon</Product>
+                                <Environment>Prod</Environment>
+                                <Browser>Chrome</Browser>
+                            </customParameters>
+                        </configuration>
+                    </plugin>
 
 
             </plugins>

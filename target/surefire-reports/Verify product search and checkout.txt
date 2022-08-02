@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: Verify product search and checkout
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.077 s <<< FAILURE! - in Verify product search and checkout
+Verify product search and checkout.As a Tester, I verify product search and proceed for check out  Time elapsed: 0.077 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "<local1>" is null
+	at Hooks.WebDriverHooks.setup(WebDriverHooks.java:26)
+
+Verify product search and checkout.As a Tester, I verify product search and proceed for check out  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.WebDriver.quit()" because "this.driver" is null
+	at Hooks.WebDriverHooks.tearDown(WebDriverHooks.java:50)
+
